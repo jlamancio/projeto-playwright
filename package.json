@@ -1,0 +1,15 @@
+{
+  "name": "projeto-playwright",
+  "version": "1.0.0",
+  "description": "Projeto para evolução de conhecimento e criação de Portfolio no GITHUB",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "@playwright/test": "^1.56.0",
+    "@types/node": "^24.7.1"
+  }
+}
