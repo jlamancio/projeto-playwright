@@ -1,7 +1,8 @@
 
 //@ts-check
 
-import { test, expect } from '@playwright/test';
+import { test, expect } from "@playwright/test";
+import { LoginPage } from "../../pages/LoginPage.js";
 
 test.describe('Login Functionality - positive way', () => {
 
