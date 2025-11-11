@@ -44,7 +44,15 @@ Arquitetura em construção. O link será adicionado em breve
     - Verifica redirecionamento para /inventory
     - Valida visibilidade do título "Products"
     - Confirma que há produtos listados na página
-
+    - 
+ - Fluxo de compra e2e ( 1 item ) 
+    - Verifica redirecionamento para /inventory
+    - Valida visibilidade do título "Products"
+    - Confirma que há produtos listados na página
+    - seleciona produto e adiciona ao carrinho
+    - valida o carrinho de compras
+    - checkout
+    - finaliza checkout  
 ### 🚫 - Cenários Negativos <br>
 - Login com usuário e senha inválidos
 - Login com usuário inválido e senha válida
