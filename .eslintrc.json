@@ -1,0 +1,36 @@
+// .eslintrc.json
+
+{
+    "root": true,
+    "env": {
+        "es2021": true,
+        "node": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:playwright/recommended"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaVersion": 12,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "@typescript-eslint",
+        "playwright"
+    ],
+    "rules": {
+        // Regra para forçar o uso de 'await' em Promises (Playwright)
+        "@typescript-eslint/no-floating-promises": "error",
+        
+        // Exige que variáveis sejam em camelCase (para evitar ProductTitle vs productsTitle)
+        "@typescript-eslint/naming-convention": [
+            "error",
+            {
+                "selector": "variable",
+                "format": ["camelCase", "UPPER_CASE"]
+            }
+        ]
+    }
+}

@@ -1,25 +1,14 @@
 
 //@ts-check
 
-import { test, expect } from "@playwright/test";
-import { LoginPage } from "../../pages/LoginPage.js";
+import { test, expect } from "../../test-setup/base.ts";
+import { users } from "../../fixtures/userData.js";
 
 test.describe('Login Functionality - positive way', () => {
 
-    test.beforeEach(async ({ page }) => {
-        await page.goto('/');
-        await expect(page.getByRole('button', { name: 'Login' })).toBeVisible();
-    });
+    test('Login with valid credentials', async ({ page, loginPage }) => {
 
-    test('Login with valid credentials', async ({ page }) => {
-        
-        // Preencher credenciais válidas e clica no botão login. 
-        await page.fill('#user-name', 'standard_user');
-        await page.fill('#password', 'secret_sauce');
-        await page.click('#login-button');
-
-        // Validar redirecionamento a página de produtos e se os produtos estão visíveis.
-
+        await loginPage.login(users.standard.username, users.standard.password);
         await expect(page).toHaveURL(/inventory/);
         await expect(page.getByText('Products')).toBeVisible();
 
@@ -31,64 +20,46 @@ test.describe('Login Functionality - positive way', () => {
 
 
 test.describe('Login Functionality - negative way', () => {
-    test.beforeEach(async ({ page }) => {
-        await page.goto('/');
-        await expect(page.getByRole('button', { name: 'Login' })).toBeVisible();
-    });
 
-    test('Login with invalid username and password', async ({ page }) => {
-        await page.fill('#user-name', 'invalid_user');
-        await page.fill('#password', 'invalid_pasword');
-        await page.click('#login-button');
+    test('Login with invalid username and password', async ({ page, loginPage }) => {
 
-        // Msg de erro para usuário e senha invalidos    
+        await loginPage.login(users.invalid_credentials.username, users.invalid_credentials.password);
         await expect(page.getByText('Epic sadface: Username and password do not match any user in this service')).toBeVisible();
 
     });
 
-    test('Login with blank username and password', async ({ page }) => {
-        await page.fill('#user-name', '');
-        await page.fill('#password', '');
-        await page.click('#login-button');
+    test('Login with blank username and password', async ({ page, loginPage }) => {
 
-        // Msg de erro para usuário e senha em branco    
+        await loginPage.login('', '');
         await expect(page.getByText('Epic sadface: Username is required')).toBeVisible();
 
     });
 
-    test('Login with invalid username', async ({ page }) => {
-        await page.fill('#user-name', 'invalid_user');
-        await page.fill('#password', 'secret_sauce');
-        await page.click('#login-button');
+    test('Login with invalid username', async ({ page, loginPage }) => {
 
-        // Msg de erro para usuário invalido
+        await loginPage.login(users.invalid_credentials.username, users.standard.password);
         await expect(page.getByText('Epic sadface: Username and password do not match any user in this service')).toBeVisible();
+        
     });
 
-    test('Login with invalid password', async ({ page }) => {
-        await page.fill('#user-name', 'standard_user');
-        await page.fill('#password', 'invalid_password');
-        await page.click('#login-button');
+    test('Login with invalid password', async ({ page, loginPage }) => {
 
-        // Msg de erro para password invalida
+        await loginPage.login(users.standard.username, users.invalid_credentials.password);
         await expect(page.getByText('Epic sadface: Username and password do not match any user in this service')).toBeVisible();
+
     });
 
-    test('Login with valid user_name and blank password', async ({ page }) => {
-        await page.fill('#user-name', 'standard_user');
-        await page.fill('#password', '');
-        await page.click('#login-button');
+    test('Login with valid user_name and blank password', async ({ page, loginPage }) => {
 
-        // Msg de erro para usuário válido e senha em branco
+        await loginPage.login(users.standard.username, '');
         await expect(page.getByText('Epic sadface: Password is required')).toBeVisible();
+
     });
 
-    test('Login with blank user_name and valid password', async ({ page }) => {
-        await page.fill('#user-name', '');
-        await page.fill('#password', 'secret_sauce');
-        await page.click('#login-button');
-
-        // Msg de erro para usuário válido e senha em branco
+    test('Login with blank user_name and valid password', async ({ page, loginPage }) => {
+        await loginPage.login('', users.standard.password);
         await expect(page.getByText('Epic sadface: Username is required')).toBeVisible();
+
     });
+
 });

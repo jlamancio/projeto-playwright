@@ -1,4 +1,4 @@
-export class CartPage {
+export class CheckoutPage {
     constructor(page) {
         this.page = page;
     }
