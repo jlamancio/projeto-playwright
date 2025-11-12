@@ -17,7 +17,6 @@ test.describe('Validate Inventory Page', () => {
 
   test('Add item to cart', async ({ page, inventoryPage }) => {
     await inventoryPage.addItemToCart('Sauce Labs Backpack');
-   // await expect.locator('data-test="shopping-cart-badge"').toHaveText('1');
   });
 
 });
